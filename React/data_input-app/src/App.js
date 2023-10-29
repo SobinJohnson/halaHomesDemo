@@ -11,7 +11,7 @@ const App = () => {
   });
 
 const fetchUser = async () => {
-  const response = await api.get('/userdata/');
+  const response = await api.get('/userdata');
   setUsers(response.data)
 };
 
@@ -28,7 +28,7 @@ const handleInputChange = (event) => {
 };
 const handleFormSubmit = async (event) => {
   event.preventDefault();
-  await api.post('/userdata/', formData);
+  await api.post('/userdata', formData);
   fetchUser();
   setFormData({
     name: "",
