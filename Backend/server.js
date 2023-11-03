@@ -16,7 +16,7 @@ const db = mysql.createConnection({
 
 app.get('/userdata', (req,res) => {
     const q = "SELECT * FROM userdata;";
-    db.query(q,(err,data)=>{
+    db.query (q,(err,data)=>{
         if(err) return res.json(err)
         return res.json(data)
     })

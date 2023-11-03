@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react"
 import api from './api'
 
 const App = () => {
-  const [users,setUsers] =  useState([]);
+  const [users, setUsers] = useState([]);
   const [formData, setFormData] = useState({
     name: "",
     profile: "",
@@ -10,14 +10,22 @@ const App = () => {
     description: ""
   });
 
-const fetchUser = async () => {
-  const response = await api.get('/userdata');
-  setUsers(response.data)
-};
+  const fetchUser = async () => {
+    try {
+      const response = await api.get('/userdata');
+      if (Array.isArray(response.data)) {
+        setUsers(response.data);
+      } else {
+        console.error(response);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
-useEffect(() => {
-  fetchUser();
-}, []);
+  useEffect(() => {
+    fetchUser();
+  }, []);
 
 const handleInputChange = (event) => {
   const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
